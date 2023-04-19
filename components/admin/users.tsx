@@ -3,7 +3,6 @@ import DomainEnum from '@/libs/enums/domain';
 import Link from 'next/link'
 import React from 'react'
 
-
 export default function AdminUsers() {
     const [data, setData] = React.useState(0)
     async function getData() {
