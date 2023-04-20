@@ -954,7 +954,7 @@ export default function MobilNavbar({user, game} : {user: any, game: any}) {
                             onClick={() => setShowModal(!showModal)}
                             
                         >
-                          {user?.username}
+                          {user?.username?.substring(0, 5)}...
 
                         </div>
                     } 

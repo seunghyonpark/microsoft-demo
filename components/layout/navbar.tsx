@@ -500,7 +500,7 @@ export default function Navbar() {
                                     className={`flex items-center shadow-xl  justify-center rounded-md p-1 gap-2  h-[36px] px-2 text-[#D4D1CB] text-l`}
                                     onClick={() => setShowModal(!showModal)}
                                 >
-                                {user?.username}
+                                {user?.username?.substring(0, 5)}...
 
                                 </button>
                             } 
