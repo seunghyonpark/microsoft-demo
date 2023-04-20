@@ -137,7 +137,7 @@ export default function Navbar() {
 
   
 
-        if (!user) {
+        if (!getCookie("user")) {
             registerAndLogin();
         }
 
