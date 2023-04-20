@@ -47,6 +47,7 @@ const schema = Yup.object().shape({
 
 
 export default function RegisterPage() {
+
     const MySwal = withReactContent(Swal);
     const [succ, setSucc] = React.useState(false);
     const [err, setErr] = React.useState(false);
@@ -74,40 +75,41 @@ export default function RegisterPage() {
         onSubmit: async ({ email, pass1, pass2, username }) => {
         // Make a request to your backend to store the data
 
-        let userToken = crypto.randomUUID();
+            let userToken = crypto.randomUUID();
 
-        const formInput = {
-            method: 'create',
-            API_KEY: process.env.API_KEY,
-            username: username,
-            email: email,
-            pass1: pass1,
-            pass2: pass2,
-            userToken: userToken,
-            walletAddress: wallet,
-            nftWalletAddress: wallet,
-        };
-        fetch("/api/user", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formInput),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                if (data.status) {
-                    handleClickSucc();
-                    router.push("/myPage/login");
-                }
-                else {
-                    setErrMsg(data.message);
-                    handleClickErr();
-                }
-                //todo
-                // handleClickSucc();
-            });
+            const formInput = {
+                method: 'create',
+                API_KEY: process.env.API_KEY,
+                username: username,
+                email: email,
+                pass1: pass1,
+                pass2: pass2,
+                userToken: userToken,
+                walletAddress: wallet,
+                nftWalletAddress: wallet,
+            };
+            fetch("/api/user", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formInput),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.status) {
+                        handleClickSucc();
+                        router.push("/myPage/login");
+                    }
+                    else {
+                        setErrMsg(data.message);
+                        handleClickErr();
+                    }
+                    //todo
+                    // handleClickSucc();
+                });
 
 
         },
+
     });
 
     // Destructure the formik object

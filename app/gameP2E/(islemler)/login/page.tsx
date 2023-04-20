@@ -43,8 +43,8 @@ export default function LoginPage() {
                     handleClickErr()
                 } else {
                     handleClickSucc();
-                    setCookie("user", data.user.user.userToken);
-                    setCookie("username", data.user.user.username);
+                    setCookie("user", data?.user?.user?.userToken);
+                    setCookie("username", data?.user?.user?.username);
                     router.push("/gameP2E");
                 }
             });

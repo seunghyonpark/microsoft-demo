@@ -49,7 +49,7 @@ export default function Deposit() {
       body: JSON.stringify(inputs)
     })
     const user = await res.json()
-    setUser(user.user.user)
+    setUser(user?.user?.user)
   }
   useEffect(() => {
     getUser();
@@ -501,10 +501,10 @@ export default function Deposit() {
           Swap your Matic to {Coin.name} and start earning
         </p>
         <p className=" text-lg text-center">
-          Dear <span className="text-amber-500">{user.username}</span> you have{" "}
-          <span className="text-green-500">{user.deposit}</span>{" "}
+          Dear <span className="text-amber-500">{user?.username}</span> you have{" "}
+          <span className="text-green-500">{user?.deposit}</span>{" "}
           <span className="text-blue-500">{Coin.name} </span>and
-          <span className="text-pink-500"> {((user.maticBalance).toString()).slice(0, 6)} Matic </span>
+          <span className="text-pink-500"> {((user?.maticBalance).toString()).slice(0, 6)} Matic </span>
           in your account
         </p>
         <div className="p-2 grid grid-cols-1 lg:grid-cols-2 w-full lg:w-2/3 gap-5">

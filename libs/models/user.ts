@@ -111,7 +111,8 @@ export const newUser = async (
   pass2: string,
   userToken: string,
   ////walletAddress: string,
-  nftWalletAddress: string
+  nftWalletAddress: string,
+  deposit: number,
 ) => {
   
   const checkUserByEmail = await User.find({ email: email });
@@ -137,7 +138,8 @@ export const newUser = async (
     userToken: userToken,
     ////walletAddress: walletAddress,
     nftWalletAddress: nftWalletAddress,
-    img: "/profile_default.gif"
+    img: "/profile_default.gif",
+    deposit: deposit,
   });
   
   return await user.save();

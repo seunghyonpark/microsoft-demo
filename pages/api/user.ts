@@ -11,6 +11,7 @@ import {
   updateUserProfileImage,
   updateUserWalletAddress,
 } from "@/libs/models/user";
+import { de } from "date-fns/locale";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -53,7 +54,7 @@ export default async function handler(
 
   if (method === "create") {
 
-    const { username, email, pass1, pass2, userToken, nftWalletAddress } =
+    const { username, email, pass1, pass2, userToken, nftWalletAddress, deposit } =
       req.body;
 
     if (
@@ -62,7 +63,8 @@ export default async function handler(
       !pass1 ||
       !pass2 ||
       !userToken ||
-      !nftWalletAddress
+      !nftWalletAddress ||
+      !deposit
     ) {
       res.status(400).json({ status: false, message: "Missing data" });
       return;
@@ -111,7 +113,8 @@ export default async function handler(
       pass2,
       userToken,
       ///depositWallet,
-      nftWalletAddress
+      nftWalletAddress,
+      deposit,
     );
 
     console.log("newUser user", user)
@@ -160,7 +163,7 @@ export default async function handler(
 
     const user = await getUser(userToken);
 
-    ////console.log("api user", user);
+    console.log("api user getOne", user);
 
 
     if (!user.success) {

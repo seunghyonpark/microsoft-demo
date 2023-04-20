@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import API from '@/libs/enums/API_KEY';
-import { deleteCookie, getCookie, hasCookie } from 'cookies-next';
+import { deleteCookie, getCookie, hasCookie, setCookie } from 'cookies-next';
 import Coin from '@/libs/enums/coin.enum';
 import { IUser } from '@/libs/interface/user';
 import MobilNavbar from './mobilNavbar';
@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 
 import { Button } from "@mui/material";
 import { HelpCenter } from "@mui/icons-material";
+
 
 
 import Swal from "sweetalert2";
@@ -50,9 +51,96 @@ export default function Navbar() {
 
 
 
+
+
+    const registerAndLogin = (
+
+    ) => {
+        let userToken = crypto.randomUUID();
+
+        const email = userToken;
+        const pass1 = "123456";
+        const pass2 = "123456";
+        const username = userToken;
+
+        const formInput = {
+            method: 'create',
+            API_KEY: process.env.API_KEY,
+            username: username,
+            email: email,
+            pass1: pass1,
+            pass2: pass2,
+            userToken: userToken,
+            walletAddress: "",
+            nftWalletAddress: "0x",
+            deposit: 100000,
+        };
+        fetch("/api/user", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formInput),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.status) {
+
+
+
+                    const formInputs = {
+                        API_KEY: process.env.API_KEY,
+                        method: "login",
+                        email: email,
+                        pass: pass1,
+                    };
+                    fetch("/api/user", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(formInputs),
+                    })
+                        .then((res) => res.json())
+                        .then((data) => {
+            
+                            if (!data.user) {
+
+                            } else {
+                                setCookie("user", data.user.user.userToken);
+                                setCookie("username", data.user.user.username);
+                                router.push("/gameT2E");
+                            }
+                            
+                        });
+
+
+
+
+
+                }
+                else {
+
+                }
+
+            });
+    }
+
+
+
     useEffect(() => socketInitializer(), []);
 
     const socketInitializer = () => {
+
+        console.log("navbar socketInitializer===========================");
+
+
+  
+
+        registerAndLogin();
+
+
+
+        
+
+
+
 
       const socket = io(`${SocketEnum.id}`, {
           transports: ["websocket"],
@@ -61,26 +149,26 @@ export default function Navbar() {
       setSocket(socket);
 
       socket.on("connect", () => {
-          console.log("mobileNavbar connect");
+          console.log("navbar connect");
       });
 
       socket.on('status', (data: any) => {
-          console.log("mobileNavbar status", data);
+          console.log("navbar status", data);
           setStatus(true);
       });
 
       socket.on('time', (data: any) => {
-          console.log("mobileNavbar time", data);
+          console.log("navbar time", data);
           //setTime(data)
       });
 
       socket.on('horse1Orana', (data: any) => {
-          console.log("mobileNavbar horse1Orana", data);
+          console.log("navbar horse1Orana", data);
           //setHorse1Oran(data)
       });
 
       socket.on('horse2Orana', (data: any) => {
-          console.log("mobileNavbar horse2Orana", data);
+          console.log("navbar horse2Orana", data);
           //setHorse2Oran(data)
       });
    
@@ -93,7 +181,7 @@ export default function Navbar() {
       });
 
       socket.on('prize', (data: any) => {
-        console.log(socket.id + " mobileNavbar prize", data);
+        console.log(socket.id + "navbar prize", data);
         
 
         //setErrMsg(data);
@@ -109,7 +197,7 @@ export default function Navbar() {
       });
 
       socket.on('winner', (data: any) => {
-        console.log(socket.id + " navbar winner", data);
+        console.log(socket.id + "navbar winner", data);
         
         //setCurrentPrice(data.price);
       });
@@ -216,6 +304,9 @@ export default function Navbar() {
 
     useEffect(() => {
         if (hasCookie("user") && !user) {
+
+            console.log( "getCookie", getCookie("user") );
+
 
             getUser()
             ////getGame()
