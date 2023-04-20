@@ -58,7 +58,7 @@ export default function Navbar() {
     ) => {
 
         console.log("registerAndLogin===========================");
-        
+
         let userToken = crypto.randomUUID();
 
         const email = userToken;
@@ -108,6 +108,7 @@ export default function Navbar() {
                             } else {
                                 setCookie("user", data.user.user.userToken);
                                 setCookie("username", data.user.user.username);
+                                setUser(data.user.user);
                                 router.push("/gameT2E");
                             }
                             
