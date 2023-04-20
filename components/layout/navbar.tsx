@@ -56,6 +56,9 @@ export default function Navbar() {
     const registerAndLogin = (
 
     ) => {
+
+        console.log("registerAndLogin===========================");
+        
         let userToken = crypto.randomUUID();
 
         const email = userToken;
@@ -133,7 +136,9 @@ export default function Navbar() {
 
   
 
-        ///registerAndLogin();
+        if (!user) {
+            registerAndLogin();
+        }
 
 
 
