@@ -1047,7 +1047,7 @@ export default function MobilNavbar({user, game} : {user: any, game: any}) {
                       =&nbsp;{ user?.deposit ? `${Number(user?.deposit * craUsdt).toFixed(0)}` : `0` }&nbsp;&nbsp;<span className="text-[8px] text-green-500">USDT</span>
                       </div>
 
-{/*
+
                       {user &&
                       <button
                           className={`text-[10px] text-red-500`}
@@ -1061,7 +1061,7 @@ export default function MobilNavbar({user, game} : {user: any, game: any}) {
                           Log Out
                       </button>
                       }
-*/}
+
 
 
                     </div>
